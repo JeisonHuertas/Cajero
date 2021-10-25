@@ -3,6 +3,9 @@ package com.interfaz;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
+
+import com.mundo.Billete;
+
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JTextField;
@@ -80,4 +83,5 @@ public class PanelValorEntregado extends JPanel {
 		add(txtCantidadBilletes10);
 
 	}
+	
 }

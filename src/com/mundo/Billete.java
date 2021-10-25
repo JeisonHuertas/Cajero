@@ -8,6 +8,17 @@ public class Billete {
 		 this.valor = valor;
 		 this.cantidad = cantidad;
 	 }
-	 
 
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+	
+	public int getValor() {
+		return valor;
+	}
+	 
 }
