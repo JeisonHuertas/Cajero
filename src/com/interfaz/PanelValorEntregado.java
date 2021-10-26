@@ -83,11 +83,15 @@ public class PanelValorEntregado extends JPanel {
 		add(txtCantidadBilletes10);
 
 	}
-	public void actualizar( int[] totales) {
-		txtCantidadBilletes50.setText(formatearValorEntero(totales[0]));
-		txtCantidadBilletes20.setText(formatearValorEntero(totales[1]));
-		txtCantidadBilletes10.setText(formatearValorEntero(totales[2]));
-		txtValorEntregado.setText(formatearValorEntero(totales[3]));
+	public void actualizar( int posicion, int cantidadBilletes, int dineroEntregado) {
+		if(posicion == 0) {
+			txtCantidadBilletes50.setText(formatearValorEntero(cantidadBilletes));
+		}else if(posicion == 1) {
+			txtCantidadBilletes20.setText(formatearValorEntero(cantidadBilletes));
+		}else if(posicion ==2) {
+			txtCantidadBilletes10.setText(formatearValorEntero(cantidadBilletes));
+		}
+		txtValorEntregado.setText(formatearValorEntero(dineroEntregado));
 	}
 	private String formatearValorEntero(int valor) {
 		return Integer.toString(valor);

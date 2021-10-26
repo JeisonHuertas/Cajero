@@ -80,6 +80,7 @@ public class Interfaz extends JFrame {
 						cantidadBilletesAUtilizar = cajero.getCaja()[i].getCantidad();
 					}
 					total = total - (cajero.getCaja()[i].getValor() * cantidadBilletesAUtilizar);
+					panelValorEntregado.actualizar(i,cantidadBilletesAUtilizar, dineroARetirar);
 					cajero.getEntregado()[i] += cantidadBilletesAUtilizar;
 					cajero.getCaja()[i].retiro(cantidadBilletesAUtilizar);
 				}
