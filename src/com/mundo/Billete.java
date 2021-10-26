@@ -21,4 +21,7 @@ public class Billete {
 		return valor;
 	}
 	 
+	public void retiro(int cantidadDeBilletes) {
+		this.cantidad -= cantidadDeBilletes;
+	}
 }

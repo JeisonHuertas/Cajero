@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.mundo.Billete;
+import com.mundo.Cajero;
 
 import java.awt.GridLayout;
 
@@ -21,17 +23,8 @@ public class Interfaz extends JFrame {
 	private PanelValorEntregado panelValorEntregado;
 	private PanelDatosCajero panelDatosCajero;
 	private PanelTotalesEntregados panelTotalesEntregados;
-	/**
-	 * Asociacion con la clase Billete
-	 */
-	private Billete billeteDe50;
-	private Billete billeteDe20;
-	private Billete billeteDe10;
-	/**
-	 * Arrays que contienen las instancias de la clase Billete
-	 */
-	private Billete[] caja;
-	private int[] entregado;
+	
+	private Cajero cajero;
 	/**
 	 * Launch the application.
 	 */
@@ -52,16 +45,7 @@ public class Interfaz extends JFrame {
 	 * Create the frame.
 	 */
 	public Interfaz() {
-		//inicializando los Arrays
-		
-		caja = new Billete[3];
-		entregado = new int[4];
-		
-		// instancia de los billetes
-		caja[0] = new Billete(50000,3);
-		caja[1] = new Billete(20000,5);
-		caja[2] = new Billete(10000,5);
-		
+		cajero = new Cajero();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 942, 518);
 		contentPane = new JPanel();
@@ -81,25 +65,35 @@ public class Interfaz extends JFrame {
 		panelTotalesEntregados = new PanelTotalesEntregados();
 		contentPane.add(panelTotalesEntregados);
 	}
-	public Billete[] darArreglo() {
-		return caja;
-	}
-	
-	public void retirar(int cantidad) {
+	public void retirar(int dineroARetirar) {
 		int cantidadBilletesAUtilizar;
-		int total;
-		for( int i = 0; i < caja.length ;i++) {
-			if (caja[i].getCantidad() == 0 ) {
-				continue;
-			}else {
-				cantidadBilletesAUtilizar = cantidad/caja[i].getValor();
-				total = cantidad - (caja[i].getValor() * cantidadBilletesAUtilizar);
-				caja[i].setCantidad(caja[i].getCantidad()-cantidadBilletesAUtilizar);
-			}
-			if(total == 0) {
-				break;
-			}
-		} 
-		panelDatosCajero.actualizar(caja);
+		int total = dineroARetirar;
+		if (dineroARetirar > cajero.getSaldoDisponible()) {
+			JOptionPane.showMessageDialog(null, "El cajero no tiene fondos", "warning", JOptionPane.WARNING_MESSAGE);
+		}else {
+			for( int i = 0; i < cajero.getCaja().length ;i++) {
+				cantidadBilletesAUtilizar = total / cajero.getCaja()[i].getValor();
+				if (dineroARetirar <= 0 ) {
+					break;
+				}else {
+					if (cantidadBilletesAUtilizar > cajero.getCaja()[i].getCantidad()) {
+						cantidadBilletesAUtilizar = cajero.getCaja()[i].getCantidad();
+					}
+					total = total - (cajero.getCaja()[i].getValor() * cantidadBilletesAUtilizar);
+					cajero.getEntregado()[i] += cantidadBilletesAUtilizar;
+					cajero.getCaja()[i].retiro(cantidadBilletesAUtilizar);
+				}
+			} 
+			cajero.descontarRetiro(dineroARetirar);
+			cajero.getEntregado()[3] += dineroARetirar;
+		}
+		panelDatosCajero.actualizar(cajero.getCaja(),cajero.getSaldoDisponible());
+		panelTotalesEntregados.actualizar(cajero.getEntregado());
+	}
+	public Billete[] getCaja() {
+		return cajero.getCaja();
+	}
+	public int getSaldoDisponible() {
+		return cajero.getSaldoDisponible();
 	}
 }

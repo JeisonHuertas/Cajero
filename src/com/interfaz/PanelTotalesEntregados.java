@@ -78,5 +78,13 @@ public class PanelTotalesEntregados extends JPanel {
 		add(txtCantidadBilletes10);
 
 	}
-
+	public void actualizar( int[] totales) {
+		txtCantidadBilletes50.setText(formatearValorEntero(totales[0]));
+		txtCantidadBilletes20.setText(formatearValorEntero(totales[1]));
+		txtCantidadBilletes10.setText(formatearValorEntero(totales[2]));
+		txtValorEntregado.setText(formatearValorEntero(totales[3]));
+	}
+	private String formatearValorEntero(int valor) {
+		return Integer.toString(valor);
+	}
 }

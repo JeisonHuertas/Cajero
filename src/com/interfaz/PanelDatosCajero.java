@@ -81,12 +81,13 @@ public class PanelDatosCajero extends JPanel {
 		txtDineroTotal.setColumns(10);
 		txtDineroTotal.setBounds(300, 140, 112, 32);
 		add(txtDineroTotal);
-		actualizar(principal.darArreglo());
+		actualizar(principal.getCaja(),principal.getSaldoDisponible() );
 	}
-	public void actualizar(  Billete[] caja) {
+	public void actualizar(  Billete[] caja, int saldoDisponible) {
 		txtCantidadBilletes50.setText(formatearValorEntero(caja[0].getCantidad()));
 		txtCantidadBilletes20.setText(formatearValorEntero(caja[1].getCantidad()));
 		txtCantidadBilletes10.setText(formatearValorEntero(caja[2].getCantidad()));
+		txtDineroTotal.setText(formatearValorEntero(saldoDisponible));
 	}
 	private String formatearValorEntero(int valor) {
 		return Integer.toString(valor);
